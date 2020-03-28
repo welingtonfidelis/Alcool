@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/icon.png">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <title>Álcool+</title>
+</head>
+<body>
+    <div id="container">
+        <img class="image-login" src="./assets/img/Alcool.png" alt="Logo Álcool+" srcset="">
+
+        <div id="typeUser">
+            <h2>Qual seu tipo de acesso?</h2>
+            <div>
+                <div onclick="handleTypeUser('user');" class="box-type-user">Usuário</div>
+                <div onclick="handleTypeUser('comercial');" class="box-type-user">Comercial</div>
+            </div>
+        </div>
+    
+        <form id="login" onsubmit="handleLogin();">
+            <h2>Vamos começar</h2>
+
+            <input placeholder="Usuário" id="user" required>
+            <input placeholder="Senha" id="password" type="password" required>
+
+            <div id="errorLogin">Usuário ou senha inválidos, tente novamente.</div>
+
+            <button type="submit">ENTRAR</button>
+
+            <div class="new-user-link">
+                <span>Ainda não tem cadastro? <a href="#" onclick="newUser();">Clique aqui.</a></span>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./assets/js/login.js"></script>
+</body>
+</html>

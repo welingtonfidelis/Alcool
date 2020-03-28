@@ -5,7 +5,7 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
-	case 'selectall':
+	case 'selectAll':
 		$json = $pdo->query("SELECT * FROM control")->fetchAll(PDO::FETCH_ASSOC);
 		break;
 

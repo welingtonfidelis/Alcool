@@ -5,13 +5,13 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
-	case 'selectallapproved':
+	case 'selectAllApproved':
 		$json = $pdo->query("SELECT * FROM provider WHERE approved = 1")->fetchAll(PDO::FETCH_ASSOC);
 		break;
 
-	case 'selectallwait':
+	case 'selectAllWaiting':
 		$json = $pdo->query("SELECT * FROM provider WHERE approved = 0")->fetchAll(PDO::FETCH_ASSOC);
-		break;
+	break;
 
 	case 'select':
 		$id = $_GET['id'];

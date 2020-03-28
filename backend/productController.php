@@ -5,11 +5,11 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
-	case 'selectallapproved':
+	case 'selectAllApproved':
 		$json = $pdo->query("SELECT * FROM product WHERE approved = 1 AND stock > 0")->fetchAll(PDO::FETCH_ASSOC);
 		break;
 
-	case 'selectallwait':
+	case 'selectAllWaiting':
 		$json = $pdo->query("SELECT * FROM product WHERE approved = 0 AND stock > 0")->fetchAll(PDO::FETCH_ASSOC);
 		break;
 

@@ -5,7 +5,7 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
-	case 'selectall':
+	case 'selectAll':
 		$sql = "SELECT req.*, prod.id AS productid, provid.id AS providerid
 		FROM request req
 		LEFT JOIN requestproduct reqprod ON reqprod.requestid = req.id
@@ -28,7 +28,7 @@ switch ($action) {
 		$json = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 		break;
 
-	case 'selectbyuser':
+	case 'selectByUser':
 		$id = $_GET['id'];
 
 		$sql = "SELECT req.*, 
@@ -44,7 +44,7 @@ switch ($action) {
 		$json = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 		break;
 
-	case 'selectbyprovider':
+	case 'selectByProvider':
 		$id = $_GET['id'];
 
 		$sql = "SELECT req.*, 
@@ -90,7 +90,7 @@ switch ($action) {
 		$json = $json ? true : false;
 		break;
 
-	case 'aproverequest':
+	case 'aproveRequest':
 		$id = $_GET['id'];
 		$approved = $_POST['approved'];
 

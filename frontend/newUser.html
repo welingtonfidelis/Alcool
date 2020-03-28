@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/icon.png">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <title>Álcool+</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Novo usuário</h1>
+
+        <form onsubmit="handleSaveUser();">
+            <div>
+                <h2>Qual seu tipo de acesso?</h2>
+
+                <label for="typeUser">Usuário</label>
+                <input type="radio" name="type" id="typeUser" checked>
+
+                <label for="typeComercial">Comercial</label>
+                <input type="radio" name="type" id="typeComercial">
+            </div>
+
+            <div>
+                <input id="name" placeholder="Nome">
+                <input id="doc" placeholder="Cpf">
+                <input id="email" placeholder="E-mail" type="email">
+                <input id="phone" placeholder="Telefone">
+                <input id="cep" placeholder="CEP">
+                <input id="street" placeholder="Rua">
+                <input id="number" placeholder="Número">
+                <input id="complement" placeholder="Complemento">
+                <input id="district" placeholder="Bairro">
+                <input id="city" placeholder="Cidade">
+                <select id="state">
+                    <option value="Minas Gerais">Minas Gerais</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Mato Grosso">Mato Grosso</option>
+                </select>
+                <input id="password" placeholder="Senha">
+                <input id="passwordConfirm" placeholder="Confirmar Senha">
+
+            </div>
+        
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./assets/js/newUser.js"></script>
+</body>
+</html>
