@@ -11,11 +11,21 @@ switch ($action) {
 
 	case 'selectAllWaiting':
 		$json = $pdo->query("SELECT * FROM provider WHERE approved = 0")->fetchAll(PDO::FETCH_ASSOC);
-	break;
+		break;
 
 	case 'select':
 		$id = $_GET['id'];
 		$json = $pdo->query("SELECT * FROM provider WHERE id={$id}")->fetch(PDO::FETCH_ASSOC);
+		break;
+
+	case 'selectByCnpj':
+		$cnpj = $_GET['cnpj'];
+		$json = $pdo->query("SELECT id FROM provider WHERE cnpj='{$cnpj}'")->fetch(PDO::FETCH_ASSOC);
+		break;
+
+	case 'selectByEmail':
+		$email = $_GET['email'];
+		$json = $pdo->query("SELECT id FROM provider WHERE email='{$email}'")->fetch(PDO::FETCH_ASSOC);
 		break;
 
 	case 'create':

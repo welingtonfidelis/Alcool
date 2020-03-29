@@ -1,0 +1,21 @@
+.radio-type-user {
+    margin: 15px 0 10px 0;
+    text-align: center;
+}
+
+.radio-type-user input {
+    margin-left: 8px;
+}
+
+.div-col-2 input:first-child{
+    flex: 2;
+}
+
+.check-level-risk{
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.check-level-risk input {
+    margin-left: 8px;
+}

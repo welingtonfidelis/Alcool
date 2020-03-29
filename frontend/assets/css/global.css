@@ -95,3 +95,21 @@ button:hover {
 .new-user-link {
     margin-top: 15px;
 }
+
+.input-cad {
+    padding: 5px;
+    border: 1px solid #69a7db;
+    margin: 5px;
+}
+
+.flex-col-w {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.flex-row-w {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

@@ -26,7 +26,9 @@ function handleTypeUser(tp) {
     showDivLogin();
 }
 
-async function handleLogin() {
+async function handleLogin(event) {
+    event.preventDefault();
+    
     try {
         let query = await $.post('../backend/sessionController.php', {
             user: $('#user').val(),

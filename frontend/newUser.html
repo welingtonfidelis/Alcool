@@ -5,42 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/img/icon.png">
     <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/newUser.css">
     <title>Álcool+</title>
 </head>
 <body>
     <div id="container">
         <h1>Novo usuário</h1>
 
-        <form onsubmit="handleSaveUser();">
-            <div>
+        <form class="flex-col-w" onsubmit="handleSubmit(event);">
+            <div class="radio-type-user">
                 <h2>Qual seu tipo de acesso?</h2>
 
+                <input type="radio" name="type" id="typeUser" value="typeUser" checked>
                 <label for="typeUser">Usuário</label>
-                <input type="radio" name="type" id="typeUser" checked>
 
+                <input type="radio" name="type" id="typeComercial" value="typeComercial">
                 <label for="typeComercial">Comercial</label>
-                <input type="radio" name="type" id="typeComercial">
             </div>
 
-            <div>
-                <input id="name" placeholder="Nome">
-                <input id="doc" placeholder="Cpf">
-                <input id="email" placeholder="E-mail" type="email">
-                <input id="phone" placeholder="Telefone">
-                <input id="cep" placeholder="CEP">
-                <input id="street" placeholder="Rua">
-                <input id="number" placeholder="Número">
-                <input id="complement" placeholder="Complemento">
-                <input id="district" placeholder="Bairro">
-                <input id="city" placeholder="Cidade">
-                <select id="state">
-                    <option value="Minas Gerais">Minas Gerais</option>
-                    <option value="São Paulo">São Paulo</option>
-                    <option value="Mato Grosso">Mato Grosso</option>
-                </select>
-                <input id="password" placeholder="Senha">
-                <input id="passwordConfirm" placeholder="Confirmar Senha">
+            <div class="flex-col-w">
+                <input id="name" placeholder="Nome" class="input-cad" required>
+                <input id="doc" placeholder="Cpf" class="input-cad" required onblur="checkDoc();" >
+                <input id="email" placeholder="E-mail" type="email" class="input-cad" required onblur="checkEmail();">
+                <input id="phone" placeholder="Telefone" class="input-cad" required>
+                <input id="cep" placeholder="CEP" class="input-cad" required onblur="checkCep();">
+                <div class="flex-row-w div-col-2">
+                    <input id="street" placeholder="Rua" class="input-cad">
+                    <input id="number" placeholder="Número" class="input-cad">
+                </div>
+                <input id="complement" placeholder="Complemento" class="input-cad">
+                <input id="district" placeholder="Bairro" class="input-cad">
+                <div class="flex-row-w div-col-2">
+                    <input id="city" placeholder="Cidade" class="input-cad">
+                    <select id="state" class="input-cad"></select>
+                </div>
+                <input id="password" placeholder="Senha" class="input-cad">
+                <input id="passwordConfirm" placeholder="Confirmar Senha" class="input-cad">
 
+                <div class="check-level-risk">
+                    <h2>Você se encaixa em um ou mais destes grupos?</h2>
+                    <input type="checkbox" id="hiper">
+                    <label for="hiper">Hipertenso</label>
+
+                    <input type="checkbox" id="asma">
+                    <label for="asma">Asmático</label>
+
+                    <input type="checkbox" id="diab">
+                    <label for="diab">Diabético</label>
+
+                    <input type="checkbox" id="fum">
+                    <label for="fum">Fumante</label>
+                </div>
             </div>
         
             <button type="submit">Salvar</button>
@@ -49,6 +64,9 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./assets/js/jquery.mask.js"></script>
     <script src="./assets/js/newUser.js"></script>
+    <script src="./assets/js/util.js"></script>
 </body>
 </html>

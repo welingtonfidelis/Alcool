@@ -14,6 +14,16 @@ switch ($action) {
 		$json = $pdo->query("SELECT * FROM user WHERE id={$id}")->fetch(PDO::FETCH_ASSOC);
 		break;
 
+	case 'selectByCpf':
+		$cpf = $_GET['cpf'];
+		$json = $pdo->query("SELECT id FROM user WHERE cpf='{$cpf}'")->fetch(PDO::FETCH_ASSOC);
+		break;
+
+	case 'selectByEmail':
+		$email = $_GET['email'];
+		$json = $pdo->query("SELECT id FROM user WHERE email='{$email}'")->fetch(PDO::FETCH_ASSOC);
+		break;
+
 	case 'create':
 		$query = '';
 		$value = '';
