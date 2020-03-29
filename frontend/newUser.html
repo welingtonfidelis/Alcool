@@ -24,23 +24,54 @@
             </div>
 
             <div class="flex-col-w">
+                <label for="name" class="label-cad">Nome *</label>
                 <input id="name" placeholder="Nome" class="input-cad" required>
+                
+                <label id="labelDoc" for="doc" class="label-cad">CPF *</label>
                 <input id="doc" placeholder="Cpf" class="input-cad" required onblur="checkDoc();" >
+                
+                <label for="email" class="label-cad">E-mail *</label>
                 <input id="email" placeholder="E-mail" type="email" class="input-cad" required onblur="checkEmail();">
+                
+                <label for="phone" class="label-cad">Telefone *</label>
                 <input id="phone" placeholder="Telefone" class="input-cad" required>
+                
+                <label for="cep" class="label-cad">CEP *</label>
                 <input id="cep" placeholder="CEP" class="input-cad" required onblur="checkCep();">
                 <div class="flex-row-w div-col-2">
-                    <input id="street" placeholder="Rua" class="input-cad">
-                    <input id="number" placeholder="Número" class="input-cad">
+                    <div class="flex-col-w">
+                        <label for="street" class="label-cad">Rua *</label>
+                        <input id="street" placeholder="Rua" class="input-cad" required>
+                    </div>
+                    
+                    <div class="flex-col-w">
+                        <label for="number" class="label-cad">Número *</label>
+                        <input id="number" placeholder="Número" type="number" class="input-cad" required>
+                    </div>
                 </div>
+                
+                <label for="complement" class="label-cad">Complemento</label>
                 <input id="complement" placeholder="Complemento" class="input-cad">
-                <input id="district" placeholder="Bairro" class="input-cad">
+                
+                <label for="district" class="label-cad">Bairro *</label>
+                <input id="district" placeholder="Bairro" class="input-cad" required>
                 <div class="flex-row-w div-col-2">
-                    <input id="city" placeholder="Cidade" class="input-cad">
-                    <select id="state" class="input-cad"></select>
+                    <div class="flex-col-w">
+                        <label for="city" class="label-cad">Cidade *</label>
+                        <input id="city" placeholder="Cidade" class="input-cad" required>
+                    </div>
+                    
+                    <div class="flex-col-w">
+                        <label for="state" class="label-cad">Estado *</label>
+                        <select id="state" class="input-cad"></select>
+                    </div>
                 </div>
-                <input id="password" placeholder="Senha" class="input-cad">
-                <input id="passwordConfirm" placeholder="Confirmar Senha" class="input-cad">
+                
+                <label for="password" class="label-cad">Senha *</label>
+                <input id="password" placeholder="Senha" type="password" class="input-cad" required>
+                
+                <label for="passwordConfirm" class="label-cad">Confirmar senha *</label>
+                <input id="passwordConfirm" placeholder="Confirmar senha" type="password" class="input-cad" required onblur="comparePassword();">
 
                 <div class="check-level-risk">
                     <h2>Você se encaixa em um ou mais destes grupos?</h2>

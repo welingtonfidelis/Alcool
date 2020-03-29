@@ -18,6 +18,7 @@ function showDivLogin() {
         $('#login').show();
 
         $('#user').attr('placeholder', `${type === 'user' ? 'CPF' : 'CNPJ'} ou E-mail`);
+        $('#labelUser').text(`${type === 'user' ? 'CPF' : 'CNPJ'} ou E-mail`);
     }
 }
 
@@ -26,9 +27,9 @@ function handleTypeUser(tp) {
     showDivLogin();
 }
 
-async function handleLogin(event) {
+async function handleSubmit(event) {
     event.preventDefault();
-    
+
     try {
         let query = await $.post('../backend/sessionController.php', {
             user: $('#user').val(),
@@ -38,12 +39,39 @@ async function handleLogin(event) {
 
         if (query !== 'false') {
             query = JSON.parse(query);
-            alert(`Bem vindo ${query.name}`);
 
-            const { name, id } = query;
-            localStorage.setItem('name', name);
-            localStorage.setItem('id', id);
-            localStorage.setItem('type', query.type);
+            const { name, id, approved } = query;
+
+            if (approved > 0) {
+                localStorage.setItem('name', name);
+                localStorage.setItem('id', id);
+                localStorage.setItem('type', query.type);
+
+                switch (type) {
+                    case 'user':
+                        console.log('dash user');
+                        break;
+
+                    case 'adm':
+                        console.log('dash adm');
+                        break;
+                    case 'comercial':
+                        localStorage.setItem('maxprice', query.maxprice);
+                        window.location = './dashboardComercial.html';
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+            else {
+                Swal.fire(
+                    `Olá ${name}`,
+                    'Infelizmente seu cadastro ainda não foi aprovado por um de nossos administradores. Por favor, aguarde.',
+                    'info'
+                );
+            }
+
         }
         else {
             $('#errorLogin').show();

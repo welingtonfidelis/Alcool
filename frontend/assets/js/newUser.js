@@ -7,12 +7,14 @@ $().ready(() => {
         if (this.value == 'typeUser') {
             $('.check-level-risk').show();
             $('#doc').attr('placeholder', 'CPF');
+            $('#labelDoc').text('CPF *');
             $("#doc").mask("999.999.999-99");
             $('#doc').val('');
         }
         else if (this.value == 'typeComercial') {
             $('.check-level-risk').hide();
-            $('#doc').attr('placeholder', 'CNPJ');
+            $('#doc').attr('placeholder', 'CNPJ *');
+            $('#labelDoc').text('CNPJ');
             $("#doc").mask("99.999.999/9999-99");
             $('#doc').val('');
         }
@@ -37,12 +39,10 @@ function createOptionState(states) {
 async function handleSubmit(event) {
     event.preventDefault();
 
-    // passwordConfirm: $('#passwordConfirm').val(),
+
     try {
-        const query = await $.post('../backend/userController.php?action=create', {
-            risklevel: $(".check-level-risk input:checked").length,
+        const data = {
             name: $('#name').val(),
-            cpf: $('#doc').val(),
             email: $('#email').val(),
             phone: $('#phone').val(),
             address: `${$('#cep').val()}, ${$('#street').val()}, ${$('#number').val()}, ${$('#complement').val()}, ${$('#district').val()}`,
@@ -50,18 +50,40 @@ async function handleSubmit(event) {
             password: $('#password').val(),
             type: $('#typeUser').is(":checked") ? 'user' : 'comercial',
             state: $("#state option:selected").text(),
-        });
+        };
 
-        if (query) {
+        let url = '';
+        if ($('#typeUser').is(":checked")) {
+            url = '../backend/userController.php?action=create';
+            data['cpf'] = $('#doc').val();
+            data['risklevel'] = $(".check-level-risk input:checked").length;
+        }
+        else {
+            url = '../backend/providerController.php?action=create';
+            data['cnpj'] = $('#doc').val();
+        }
+
+        const query = await $.post(url, data);
+
+        if (query !== 'false') {
+            const msg = $('#typeUser').is(":checked") ?
+                'Seu cadastro foi efetuado com sucesso' :
+                'Seu cadastro foi efetuado com sucesso e será avaliado e aprovado por um de nossos administradores. Aguarde por favor.';
+
             Swal.fire(
                 'Parabéns!',
-                'Seu cadastro foi efetuado com sucesso.',
+                msg,
                 'success'
             ).then(() => {
                 window.location = './index.html';
             });
-
-
+        }
+        else {
+            Swal.fire(
+                'Ops!',
+                'Parece que algo deu errado. Tente novamente.',
+                'error'
+            );
         }
 
     } catch (error) {
@@ -104,7 +126,7 @@ async function checkEmail() {
 
         const div = document.getElementById('email');
         if (query !== 'false') {
-            div.setCustomValidity(`E-mail já cadastrado no sistema.`);
+            div.setCustomValidity(`E-mail já cadastrado no sistema!`);
         }
         else div.setCustomValidity('');
 
@@ -122,4 +144,12 @@ async function checkCep() {
         $('#district').val(query.bairro);
         $('#city').val(query.localidade);
     }
+}
+
+function comparePassword() {
+    const div = document.getElementById('passwordConfirm');
+    if ($('#password').val() !== $('#passwordConfirm').val()) {
+        div.setCustomValidity(`As senhas digitadas são diferentes!`);
+    }
+    else div.setCustomValidity('');
 }

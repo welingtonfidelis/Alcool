@@ -13,6 +13,14 @@ switch ($action) {
 		$json = $pdo->query("SELECT * FROM product WHERE approved = 0 AND stock > 0")->fetchAll(PDO::FETCH_ASSOC);
 		break;
 
+	case 'selectByProvider':
+		$id = $_GET['id'];
+
+		$sql = "SELECT * FROM product WHERE providerid = {$id}";
+
+		$json = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		break;
+
 	case 'select':
 		$id = $_GET['id'];
 		$json = $pdo->query("SELECT * FROM product WHERE id={$id}")->fetch(PDO::FETCH_ASSOC);

@@ -25,6 +25,7 @@ button {
     color: #fff;
     font-weight: bold;
     transition: 0.3s;
+    margin: 5px;
 }
 
 button:hover {
@@ -78,14 +79,12 @@ button:hover {
 #login {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    width: 35%;
 }
 
-#login > input {
-    width: 28vw;
-    padding: 5px;
-    border: 1px solid #69a7db;
-    margin: 5px;
+#login div:first-child, #login div:last-child {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 #errorLogin {
@@ -99,7 +98,12 @@ button:hover {
 .input-cad {
     padding: 5px;
     border: 1px solid #69a7db;
-    margin: 5px;
+    margin: 0 5px 5px 5px;
+}
+
+.label-cad {
+    margin-left: 5px;
+    font-size: 16px;
 }
 
 .flex-col-w {
@@ -112,4 +116,14 @@ button:hover {
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
 }

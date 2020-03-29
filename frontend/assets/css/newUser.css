@@ -7,8 +7,12 @@
     margin-left: 8px;
 }
 
-.div-col-2 input:first-child{
-    flex: 2;
+.div-col-2 div:first-child{
+    flex: 3;
+}
+
+.div-col-2 div:last-child{
+    flex: 1;
 }
 
 .check-level-risk{
@@ -18,4 +22,8 @@
 
 .check-level-risk input {
     margin-left: 8px;
+}
+
+.flex-col-w select {
+    height: 100%;
 }

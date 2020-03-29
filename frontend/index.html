@@ -19,11 +19,14 @@
             </div>
         </div>
     
-        <form id="login" onsubmit="handleLogin(event);">
-            <h2>Vamos começar</h2>
+        <form id="login" onsubmit="handleSubmit(event);">
+            <div><h2>Vamos começar</h2></div>
 
-            <input placeholder="Usuário" id="user" required>
-            <input placeholder="Senha" id="password" type="password" required>
+            <label id="labelUser" for="user" class="label-cad">CPF ou Em-mail</label>
+            <input placeholder="Usuário" id="user" class="input-cad" required>
+
+            <label for="password" class="label-cad">Senha</label>
+            <input placeholder="Senha" id="password" type="password" class="input-cad" required>
 
             <div id="errorLogin">Usuário ou senha inválidos, tente novamente.</div>
 
@@ -36,6 +39,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="./assets/js/login.js"></script>
 </body>
 </html>
