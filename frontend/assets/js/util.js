@@ -44,3 +44,25 @@ async function findByCep(cep){
         }
     }
 }
+
+function errorInform(title, message){
+    title = title ? title : 'Ops!';
+    message = message ? message : 'Parece que algo deu errado. Por favor, tente novamente.';
+    
+    Swal.fire(
+        title,
+        message,
+        'error'
+    );
+}
+
+function successInform(title, message){
+    title = title ? title : 'Sucesso!';
+    message = message ? message : 'Salvo com sucesso.';
+
+    Swal.fire(
+        title,
+        message,
+        'success'
+    );
+}

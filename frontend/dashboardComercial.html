@@ -7,7 +7,6 @@
     <link rel="icon" href="./assets/img/icon.png">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/dashboardComercial.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Álcool+</title>
 </head>
 
@@ -17,98 +16,34 @@
 
         <div class="flex-col-w">
             <div class="flex-row-w box-content">
-                <div class="left-box">
+                <div class="box-content-space">
                     <h2>Pedidos aguardando sua aprovação</h2>
 
-                    <div class="left-content box-card">
-                        <div class="left-content-header">
-                            <span>22/05/2020</span>
-                            <span>Nível 3</span>
-                        </div>
-
-                        <div>
-                            <span>Fulando da silva Fulaninho silveiro</span>
-                            <p>
-                                <span>35219999999</span>
-                                <span>fulano@email.com</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <span>Rua dos caraos, bairro tal, numero 4, Passos - Minas Gerais</span>
-                        </div>
-
-                        <div class="left-content-product">
-                            <span>2</span>
-                            <span>Álcoo 49</span>
-                            <span>R$15,00</span>
-                        </div>
-
-                        <div class="left-content-footer">
-                            <button>Aprovar</button>
-                        </div>
-                    </div>
+                    <div id="request-wait-list" class="box-content-list"></div>
                 </div>
 
-                <div class="right-box">
+                <div>
                     <h2>Pedidos aprovados</h2>
 
-                    <div class="left-content box-card">
-                        <div class="left-content-header">
-                            <span>22/05/2020</span>
-                            <span>Nível 3</span>
-                        </div>
-
-                        <div>
-                            <span>Fulando da silva Fulaninho silveiro</span>
-                            <p>
-                                <span>35219999999</span>
-                                <span>fulano@email.com</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <span>Rua dos caraos, bairro tal, numero 4, Passos - Minas Gerais</span>
-                        </div>
-
-                        <div class="left-content-product">
-                            <span>2</span>
-                            <span>Álcoo 49</span>
-                            <span>R$15,00</span>
-                        </div>
-                    </div>
+                    <div id="request-approved-list" class="box-content-list"></div>
                 </div>
             </div>
 
             <div class="flex-row-w box-content">
-                <div class="left-box">
+                <div class="box-content-space">
                     <h2>Produtos aguardando aprovação do adm</h2>
 
-                    <div id="product-wait-list"></div>
-                    <!-- <div class="left-content box-card">
-                        <div class="left-content-product">
-                            <span>2</span>
-                            <span>Álcoo 49</span>
-                            <span>R$15,00</span>
-                        </div>
-                    </div> -->
+                    <div id="product-wait-list" class="box-content-list"></div>
                 </div>
 
-                <div class="right-box">
+                <div>
                     <div class="flex-row-w right-content-header">
                         <h2>Estoque</h2>
 
                         <button onclick="showModal();">Novo produto</button>
                     </div> 
 
-                    <div id="product-approved-list"></div>
-                    <!-- <div class="left-content box-card">
-                        <div class="left-content-product">
-                            <span>10</span>
-                            <span>Álcoo 49</span>
-                            <span>R$15,00</span>
-                        </div>
-                    </div> -->
+                    <div id="product-approved-list" class="box-content-list"></div>
                 </div>
             </div>
         </div>
@@ -136,8 +71,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./assets/js/util.js"></script>
     <script src="./assets/js/jquery.mask.js"></script>
-    <script src="./assets/js/comercial.js"></script>
+    <script src="./assets/js/dashboardComercial.js"></script>
 </body>
 
 </html>

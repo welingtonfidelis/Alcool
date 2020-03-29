@@ -32,7 +32,7 @@ switch ($action) {
 		$id = $_GET['id'];
 
 		$sql = "SELECT req.*, 
-		prod.id AS productid, prod.name AS prodname, prod.stock, prod.price, prod.approved,
+		prod.id AS productid, prod.name AS prodname, prod.stock, prod.price, prod.approved AS prodapproved,
 		provid.id AS providerid, provid.name AS providername, provid.cnpj, provid.phone, 
 		provid.email, provid.city, provid.state, provid.address
 		FROM request req
@@ -48,9 +48,9 @@ switch ($action) {
 		$id = $_GET['id'];
 
 		$sql = "SELECT req.*, 
-		usr.id AS userid, usr.name AS username, usr.cpf, usr.phone, 
+		usr.id AS userid, usr.name AS username, usr.cpf, usr.phone, usr.risklevel,
 		usr.email, usr.city, usr.state, usr.address,
-		prod.id AS productid, prod.name AS prodname, prod.stock, prod.price, prod.approved
+		prod.id AS productid, prod.name AS prodname, prod.stock, prod.price, prod.approved AS prodapproved
 		FROM product prod
 		INNER JOIN requestproduct reqprod ON reqprod.productid = prod.id
 		INNER JOIN request req ON req.id = reqprod.requestid
@@ -96,7 +96,21 @@ switch ($action) {
 
 		$sql = "UPDATE request SET approved = {$approved} WHERE id = {$id}";
 		$json = $pdo->query($sql);
-		
+
+		$value = ($approved == 'true' ? "-1" : "+1");
+
+		if($json){
+			$sql = "UPDATE product prodNew
+			INNER JOIN requestproduct reqprod ON reqprod.requestid = {$id}
+			INNER JOIN product prodOld ON prodOld.id = reqprod.productid
+			SET prodNew.stock = prodOld.stock {$value}";
+
+			$pdo->query($sql);
+		}
+		else {
+			
+		}
+
 		$json = $json ? true : false;
 		break;
 

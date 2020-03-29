@@ -50,6 +50,7 @@ async function handleSubmit(event) {
                 switch (type) {
                     case 'user':
                         console.log('dash user');
+                        window.location = './dashboardUser.html';
                         break;
 
                     case 'adm':

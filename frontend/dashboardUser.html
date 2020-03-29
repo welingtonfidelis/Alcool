@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/icon.png">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/dashboardUser.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <title>Álcool+</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Dashboard Usuário</h1>
+
+        <div class="flex-col-w">
+            <div class="flex-row-w box-content">
+                <div class="box-content-space">
+                    <h2>Pedidos aguardando confirmação</h2>
+
+                    <div id="request-wait-list" class="box-content-list"></div>
+                </div>
+
+                <div>
+                    <div class="flex-row-w right-content-header">
+                        <h2>Pedidos confirmados</h2>
+
+                        <button onclick="showModal();">Novo pedido</button>
+                    </div>
+
+                    <div id="request-approved-list" class="box-content-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-new-product">
+            <form onsubmit="handleSubmit(event)">
+                <div class="modal-header">
+                    <span onclick="showModal();">Fechar</span>
+                    <h2>Novo pedido</h2>
+                </div>
+
+                <label for="product-list" class="label-cad">Lista de produtos *</label>
+                <select id="product-list" class="input-cad" onchange="handleSelectProduct()"></select>
+
+                <label for="name" class="label-cad">Produto</label>
+                <input id="name" class="input-cad" disabled>
+
+                <div class="flex-row-w">
+                    <div class="flex-col-w">
+                        <label for="stock" class="label-cad">Estoque</label>
+                        <input id="stock" class="input-cad" disabled>
+                    </div>
+
+                    <div class="flex-col-w">
+                        <label for="price" class="label-cad">Preço un</label>
+                        <input id="price" class="input-cad" disabled>
+                    </div>
+                </div>
+
+                <label for="prov-name" class="label-cad">Fornecedor</label>
+                <input id="prov-name" class="input-cad" disabled>
+
+                <div class="flex-row-w">
+                    <div class="flex-col-w">
+                        <label for="phone" class="label-cad">Telefone</label>
+                        <input id="phone" class="input-cad" disabled>
+                    </div>
+
+                    <div class="flex-col-w">
+                        <label for="email" class="label-cad">E-mail</label>
+                        <input id="email" class="input-cad" disabled>
+                    </div>
+                </div>
+
+                <label for="address" class="label-cad">Endereço</label>
+                <input id="address" class="input-cad" disabled>
+
+                <div class="flex-row-w">
+                    <div class="flex-col-w">
+                        <label for="amount" class="label-cad">Quantidade</label>
+                        <input id="amount" class="input-cad" placeholder="Quantidade">
+                    </div>
+
+                    <div class="flex-col-w">
+                        <label for="total-price" class="label-cad">Total</label>
+                        <input id="total-price" class="input-cad" placeholder="Total" disabled>
+                    </div>
+                </div>
+
+                <button>Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./assets/js/util.js"></script>
+    <script src="./assets/js/jquery.mask.js"></script>
+    <script src="./assets/js/dashboardUser.js"></script>
+</body>
+
+</html>

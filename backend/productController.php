@@ -6,7 +6,13 @@ $json = [];
 
 switch ($action) {
 	case 'selectAllApproved':
-		$json = $pdo->query("SELECT * FROM product WHERE approved = 1 AND stock > 0")->fetchAll(PDO::FETCH_ASSOC);
+		$sql = "SELECT prod.*, 
+		prov.name AS provname, prov.cnpj, prov.email, prov.phone, prov.city, prov.state, prov.address
+		FROM product prod
+		INNER JOIN provider prov ON prov.id = prod.providerid
+		WHERE prod.approved = 1 AND prod.stock > 0";
+
+		$json = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 		break;
 
 	case 'selectAllWaiting':
