@@ -1,12 +1,13 @@
 const name = localStorage.getItem('name');
 const id = localStorage.getItem('id');
 let modalCtrl = false;
-let productSelected = null;
+let modalCtrl2 = false;
 let idUpdate = null;
 let typeUpdate = null;
 
 $().ready(() => {
-    $('#modal-new').hide();
+    $('#modal-product').hide();
+    $('#modal-user').hide();
 
     Swal.fire(
         `Olá ${name}`,
@@ -22,6 +23,7 @@ $().ready(() => {
     $('#amount').mask('9');
     $("#phone").mask("(99) 99999-9999");
     $("#cep").mask("99999999");
+    $('#price').mask("###0,00", { reverse: true })
 });
 
 async function getProvider() {
@@ -90,8 +92,6 @@ async function getProduct() {
             await $.get(`../backend/productController.php?action=selectAll`)
         );
 
-        console.log(query);
-        
         let htmlAproved = '';
         let htmlWait = '';
         if (query.length > 0) {
@@ -100,7 +100,7 @@ async function getProduct() {
                     <div class="left-content box-card">
                         <div class="header-btn-action">
                             <span onclick="handleDelete('product', ${el.id});">Deletar</span>
-                            ${el.approved > 0 ? `<span>Editar</span>` : ''}
+                            ${el.approved > 0 ? `<span onclick="handleEdit('product', ${el.id});">Editar</span>` : ''}
                         </div>
 
                         <div class="flex-row-w">
@@ -164,38 +164,54 @@ async function handleApprove(type, id) {
 async function handleSubmit(event) {
     event.preventDefault();
 
+    url = `../backend/${typeUpdate}Controller.php?action=update&id=${idUpdate}`;
+    let data = {};
     try {
-        const data = {
-            name: $('#name').val(),
-            email: $('#email').val(),
-            phone: $('#phone').val(),
-            address: `${$('#cep').val()}, ${$('#street').val()}, ${$('#number').val()}, ${$('#complement').val()}, ${$('#district').val()}`,
-            city: $('#city').val(),
-            password: $('#password').val(),
-            state: $("#state option:selected").text(),
-        };
+        if(typeUpdate === 'user' || typeUpdate === 'provider'){
+            data = {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                phone: $('#phone').val(),
+                address: `${$('#cep').val()}, ${$('#street').val()}, ${$('#number').val()}, ${$('#complement').val()}, ${$('#district').val()}`,
+                city: $('#city').val(),
+                password: $('#password').val(),
+                state: $("#state option:selected").text(),
+            };
 
-        let url = '';
-        if (typeUpdate === 'user') {
-            url = `../backend/userController.php?action=update&id=${idUpdate}`;
-            data['cpf'] = $('#doc').val();
-            data['risklevel'] = $(".check-level-risk input:checked").length;
-            data['type'] = 'user';
+            if (typeUpdate === 'user') {
+                data['cpf'] = $('#doc').val();
+                data['risklevel'] = $(".check-level-risk input:checked").length;
+                data['type'] = 'user';
+            }
+            else {
+                data['cnpj'] = $('#doc').val();
+                data['approved'] = $('#aproved').is(":checked") ? 1 : 0;
+                data['type'] = 'comercial';
+            }
         }
         else {
-            url = `../backend/providerController.php?action=update&id=${idUpdate}`;
-            data['cnpj'] = $('#doc').val();
-            data['approved'] = $('#aproved').is(":checked") ? 1 : 0;
-            data['type'] = 'comercial';
+            data = {
+                name: $('#name-prod').val(),
+                stock: $('#stock').val(),
+                price: ($('#price').val()).replace(',', '.'),
+                approved: $('#approved-prod').is(":checked") ? 1 : 0
+            };
         }
 
         const query = await $.post(url, data);
 
         if (query !== 'false') {
-            showModal();
-            successInform();
-            getProvider();
+            if(typeUpdate === 'user' || typeUpdate === 'provider') {
+                getProvider();
+                showModalUser();
+            }
+            else {
+                getProduct();
+                showModalProduct();
+            }
 
+            successInform();
+            
             idUpdate = null;
             typeUpdate = null;
         }
@@ -230,7 +246,7 @@ function handleDelete(type, id) {
 
                     if(type === 'provider') getProvider();
                     else getProduct();
-                    
+
                 }
                 else errorInform();
 
@@ -243,8 +259,6 @@ function handleDelete(type, id) {
 }
 
 async function handleEdit(type, id) {
-    let url = `../backend/userController.php?action=select&id=${id}`;
-
     if (type === 'user') {
         $('.check-level-risk').append(`
             <h2>Você se encaixa em um ou mais destes grupos?</h2>
@@ -271,39 +285,52 @@ async function handleEdit(type, id) {
         $('#doc').attr('placeholder', 'CNPJ *');
         $('#labelDoc').text('CNPJ');
         $("#doc").mask("99.999.999/9999-99");
-
-        url = `../backend/providerController.php?action=select&id=${id}`;
     }
 
     try {
-        const query = JSON.parse(await $.get(url));
+        const query = JSON.parse(await $.get(
+            `../backend/${type}Controller.php?action=select&id=${id}`
+            ));
 
         if (query !== 'false') {
-            const address = (query.address).split(',');
-            const [cep, street, number, complement, district] = address;
-
-            $('#name').val(query.name);
-            $('#email').val(query.email);
-            $('#phone').val(query.phone);
-            $('#cep').val(cep ? cep : '');
-            $('#street').val(street ? street : '');
-            $('#number').val(number ? (number).replace(' ', '') : '');
-            $('#complement').val(complement ? complement : '');
-            $('#district').val(district ? district : '');
-            $('#city').val(query.city);
-            $('#state').val(query.state);
-
-            if (type === 'user') {
-                $('#doc').val(query.cpf);
-            }
-            else {
-                $('#doc').val(query.cnpj);
-                $('#approved').attr('checked', query.approved > 0);
-            }
-
             idUpdate = id;
             typeUpdate = type;
-            showModal();
+
+            if(type === 'user' || type === 'provider'){
+                const address = (query.address).split(',');
+                const [cep, street, number, complement, district] = address;
+    
+                $('#name').val(query.name);
+                $('#email').val(query.email);
+                $('#phone').val(query.phone);
+                $('#cep').val(cep ? cep : '');
+                $('#street').val(street ? street : '');
+                $('#number').val(number ? (number).replace(' ', '') : '');
+                $('#complement').val(complement ? complement : '');
+                $('#district').val(district ? district : '');
+                $('#city').val(query.city);
+                $('#state').val(query.state);
+    
+                if (type === 'user') {
+                    $('#doc').val(query.cpf);
+                }
+                else {
+                    $('#doc').val(query.cnpj);
+                    $('#approved').attr('checked', query.approved > 0);
+                }
+
+                showModalUser();
+            }
+            else {
+                $('#name-prod').val(query.name);
+                $('#stock').val(query.stock);
+                $('#price').val(query.price);
+                $('#approved-prod').attr('checked', query.approved > 0);
+
+                showModalProduct();
+            }
+
+            
         }
         else errorInform();
 
@@ -323,21 +350,25 @@ function createOptionState(states) {
     $('#state').append(html);
 }
 
-function handleTotal() {
-    if (productSelected) {
-        $('#total-price').val($('#amount').val() * productSelected.price)
-    }
-}
-
-function showModal() {
+function showModalUser() {
     modalCtrl = !modalCtrl;
 
     if (modalCtrl) {
-        $('#modal-new').show();
+        $('#modal-user').show();
     }
     else {
-        productSelected = null;
-        $('#modal-new').hide();
+        $('#modal-user').hide();
+    }
+}
+
+function showModalProduct() {
+    modalCtrl2 = !modalCtrl2;
+
+    if (modalCtrl2) {
+        $('#modal-product').show();
+    }
+    else {
+        $('#modal-product').hide();
     }
 }
 

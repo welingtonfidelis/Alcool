@@ -52,10 +52,33 @@
             </div>
         </div>
 
-        <div id="modal-new">
+        <div id="modal-product" class="modal-new">
             <form onsubmit="handleSubmit(event)">
                 <div class="modal-header">
-                    <span onclick="showModal();">Fechar</span>
+                    <span onclick="showModalProduct();">Fechar</span>
+                    <h2>Novo produto</h2>
+                </div>
+
+                <label for="name-prod" class="label-cad">Nome *</label>
+                <input id="name-prod" placeholder="Nome" class="input-cad" required>
+
+                <label for="stock" class="label-cad">Quantidade *</label>
+                <input id="stock" placeholder="Quantidade" class="input-cad" required>
+
+                <label for="price" class="label-cad">Preço un *</label>
+                <input id="price" placeholder="Preço un" class="input-cad" required >
+
+                <input type="checkbox" id="approved-prod">
+                <label for="approved-prod">Aprovado</label>
+
+                <button>Salvar</button>
+            </form>
+        </div>
+
+        <div id="modal-user" class="modal-new">
+            <form onsubmit="handleSubmit(event)">
+                <div class="modal-header">
+                    <span onclick="showModalUser();">Fechar</span>
                     <h2 id="title-edit">Editar Usuário</h2>
                 </div>
 
