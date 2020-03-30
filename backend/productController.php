@@ -5,6 +5,15 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
+	case 'selectAll':
+		$sql = "SELECT prod.*, 
+		prov.name AS provname, prov.cnpj, prov.email, prov.phone, prov.city, prov.state, prov.address
+		FROM product prod
+		INNER JOIN provider prov ON prov.id = prod.providerid";
+
+		$json = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		break;
+
 	case 'selectAllApproved':
 		$sql = "SELECT prod.*, 
 		prov.name AS provname, prov.cnpj, prov.email, prov.phone, prov.city, prov.state, prov.address
@@ -60,17 +69,22 @@ switch ($action) {
 		$sql = "SELECT maxprice FROM control WHERE id = 1";
 		$query = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 
-		if ($_POST['price'] <= $query['maxprice']) {
-			foreach ($_POST as $name => $val) {
-				$val = (!isset($val) ? 'NULL' : "'{$val}'");
-				$queryU .= (empty($queryU) ? '' : ', ') . "{$name} = {$val}";
-			}
+		foreach ($_POST as $name => $val) {
+			$val = (!isset($val) ? 'NULL' : "'{$val}'");
+			$queryU .= (empty($queryU) ? '' : ', ') . "{$name} = {$val}";
+		}
 
-			$sql = "UPDATE product SET {$queryU} WHERE id = ${id}";
+		$sql = "UPDATE product SET {$queryU} WHERE id = ${id}";
 
+		if (isset($_POST['price'])) {
+			if ($_POST['price'] <= $query['maxprice']) {
+				$json = $pdo->query($sql);
+				$json = $json ? true : false;
+			} else $json = false;
+		} else {
 			$json = $pdo->query($sql);
 			$json = $json ? true : false;
-		} else $json = false;
+		}
 
 		break;
 

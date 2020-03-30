@@ -172,7 +172,7 @@ button:hover {
     margin-right: 5px;
 }
 
-#modal-new-product {
+#modal-new {
     z-index: 3;
     padding-top: 100px;
     position: fixed;
@@ -187,7 +187,7 @@ button:hover {
     justify-content: center;
 }
 
-#modal-new-product form {
+#modal-new form {
     display: flex;
     flex-direction: column;
     border: 1px solid #69a7db;
@@ -199,7 +199,7 @@ button:hover {
     max-height: 80vh;
 }
 
-#modal-new-product form button {
+#modal-new form button {
     margin: 0 5px 0 5px;
 }
 

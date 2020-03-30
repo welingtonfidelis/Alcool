@@ -5,7 +5,7 @@ let modalCtrl = false;
 let productSelected = null;
 
 $().ready(() => {
-    $('#modal-new-product').hide();
+    $('#modal-new').hide();
 
     Swal.fire(
         `Olá ${name}`,
@@ -143,11 +143,11 @@ function showModal() {
     modalCtrl = !modalCtrl;
 
     if (modalCtrl) {
-        $('#modal-new-product').show();
+        $('#modal-new').show();
     }
     else {
         productSelected = null;
-        $('#modal-new-product').hide();
+        $('#modal-new').hide();
     }
 }
 

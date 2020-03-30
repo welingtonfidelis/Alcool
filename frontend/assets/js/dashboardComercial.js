@@ -4,7 +4,7 @@ const maxprice = localStorage.getItem('maxprice');
 let modalCtrl = false;
 
 $().ready(() => {
-    $('#modal-new-product').hide();
+    $('#modal-new').hide();
 
     Swal.fire(
         `Olá ${name}`,
@@ -168,9 +168,9 @@ function showModal() {
     modalCtrl = !modalCtrl;
 
     if (modalCtrl) {
-        $('#modal-new-product').show();
+        $('#modal-new').show();
     }
-    else $('#modal-new-product').hide();
+    else $('#modal-new').hide();
 }
 
 function checkMaxPrice() {

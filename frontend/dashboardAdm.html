@@ -35,8 +35,24 @@
                 </div>
             </div>
         </div>
+        
+        <div class="flex-col-w">
+            <div class="flex-row-w box-content">
+                <div class="box-content-space">
+                    <h2>Produtos aguardando aprovação</h2>
 
-        <div id="modal-new-product">
+                    <div id="product-wait-list" class="box-content-list"></div>
+                </div>
+
+                <div>
+                    <h2>Produtos aprovados</h2>
+
+                    <div id="product-approved-list" class="box-content-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-new">
             <form onsubmit="handleSubmit(event)">
                 <div class="modal-header">
                     <span onclick="showModal();">Fechar</span>

@@ -1,13 +1,12 @@
 const name = localStorage.getItem('name');
 const id = localStorage.getItem('id');
-let listProduct = [];
 let modalCtrl = false;
 let productSelected = null;
 let idUpdate = null;
 let typeUpdate = null;
 
 $().ready(() => {
-    $('#modal-new-product').hide();
+    $('#modal-new').hide();
 
     Swal.fire(
         `Olá ${name}`,
@@ -65,7 +64,7 @@ async function getProvider() {
                 else {
                     tmp += `
                         <div id="btn-approve-request" class="left-content-footer">
-                                <button onclick="handleApprove(${el.id});">Aprovar</button>
+                                <button onclick="handleApprove('provider', ${el.id});">Aprovar</button>
                             </div>
                         </div>
                     `;
@@ -83,19 +82,57 @@ async function getProvider() {
 }
 
 async function getProduct() {
-    $('#product-list').html('');
+    $('#product-approved-list').html('');
+    $('#product-wait-list').html('');
 
     try {
-        listProduct = JSON.parse(
-            await $.get(`../backend/productController.php?action=selectAllApproved`)
+        const query = JSON.parse(
+            await $.get(`../backend/productController.php?action=selectAll`)
         );
 
-        let html = '<option value="0" disabled selected>Escolha um produto</option>';
-        listProduct.forEach(el => {
-            html += `<option value="${el.id}">${el.name} - ${el.city}/${el.state} </option>`;
-        });
+        console.log(query);
+        
+        let htmlAproved = '';
+        let htmlWait = '';
+        if (query.length > 0) {
+            query.forEach(el => {
+                let tmp = `
+                    <div class="left-content box-card">
+                        <div class="header-btn-action">
+                            <span onclick="handleDelete('product', ${el.id});">Deletar</span>
+                            ${el.approved > 0 ? `<span>Editar</span>` : ''}
+                        </div>
 
-        $('#product-list').append(html);
+                        <div class="flex-row-w">
+                            <span>${el.name}</span>&nbsp;&nbsp;
+                        </div>
+
+                        <div  class="flex-row-w">
+                            <span>${el.stock}</span>&nbsp;&nbsp;    
+                            <span>R$${el.price}</span>
+                        </div>
+                                
+                        <span>${el.provname}</span>
+                `
+
+                if (el.approved > 0) {
+                    tmp += '</div>';
+                    htmlAproved += tmp;
+                }
+                else {
+                    tmp += `
+                        <div id="btn-approve-request" class="left-content-footer">
+                                <button onclick="handleApprove('product', ${el.id});">Aprovar</button>
+                            </div>
+                        </div>
+                    `;
+                    htmlWait += tmp;
+                }
+            });
+
+            $('#product-approved-list').append(htmlAproved);
+            $('#product-wait-list').append(htmlWait);
+        }
 
     } catch (error) {
         console.log(error);
@@ -103,32 +140,25 @@ async function getProduct() {
     }
 }
 
-async function handleApprove(id) {
+async function handleApprove(type, id) {
     console.log('aprovar', id);
     try {
         const query = await $.post(
-            `../backend/providerController.php?action=update&id=${id}`, { approved: 1 }
+            `../backend/${type}Controller.php?action=update&id=${id}`, { approved: 1 }
         );
 
-        successInform();
-        getProvider();
+        if(query !== 'false'){
+            if(type === 'provider') getProvider();
+            else getProduct();
+
+            successInform();
+        }
+        else errorInform();
 
     } catch (error) {
         console.log(error);
         errorInform();
     }
-}
-
-function handleSelectProduct() {
-    productSelected = listProduct[$("#product-list").prop('selectedIndex') - 1];
-
-    $('#name').val(productSelected.name);
-    $('#price').val(productSelected.price);
-    $('#stock').val(productSelected.stock);
-    $('#prov-name').val(productSelected.provname);
-    $('#phone').val(productSelected.phone);
-    $('#email').val(productSelected.email);
-    $('#address').val(`${productSelected.address}, ${productSelected.city} - ${productSelected.state}`);
 }
 
 async function handleSubmit(event) {
@@ -198,7 +228,9 @@ function handleDelete(type, id) {
                 if (query !== 'false') {
                     successInform();
 
-                    getProvider();
+                    if(type === 'provider') getProvider();
+                    else getProduct();
+                    
                 }
                 else errorInform();
 
@@ -301,11 +333,11 @@ function showModal() {
     modalCtrl = !modalCtrl;
 
     if (modalCtrl) {
-        $('#modal-new-product').show();
+        $('#modal-new').show();
     }
     else {
         productSelected = null;
-        $('#modal-new-product').hide();
+        $('#modal-new').hide();
     }
 }
 
