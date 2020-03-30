@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/icon.png">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/dashboardAdm.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <title>Álcool+</title>
+</head>
+
+<body>
+    <div id="container">
+        <div class="content-header">
+            <h1>Dashboard Administrador</h1>
+
+            <span onclick="logout();">Sair</span>
+        </div>
+
+        <div class="flex-col-w">
+            <div class="flex-row-w box-content">
+                <div class="box-content-space">
+                    <h2>Fornecedores aguardando aprovação</h2>
+
+                    <div id="provider-wait-list" class="box-content-list"></div>
+                </div>
+
+                <div>
+                    <h2>Fornecedores aprovados</h2>
+
+                    <div id="provider-approved-list" class="box-content-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-new-product">
+            <form onsubmit="handleSubmit(event)">
+                <div class="modal-header">
+                    <span onclick="showModal();">Fechar</span>
+                    <h2 id="title-edit">Editar Usuário</h2>
+                </div>
+
+                <form class="flex-col-w" onsubmit="handleSubmit(event);">
+                    <div class="flex-col-w">
+                        <label for="name" class="label-cad">Nome *</label>
+                        <input id="name" placeholder="Nome" class="input-cad" required>
+
+                        <label id="labelDoc" for="doc" class="label-cad">CPF *</label>
+                        <input id="doc" placeholder="Cpf" class="input-cad">
+
+                        <label for="email" class="label-cad">E-mail *</label>
+                        <input id="email" placeholder="E-mail" type="email" class="input-cad" required>
+
+                        <label for="phone" class="label-cad">Telefone *</label>
+                        <input id="phone" placeholder="Telefone" class="input-cad" required>
+
+                        <label for="cep" class="label-cad">CEP *</label>
+                        <input id="cep" placeholder="CEP" class="input-cad" required onblur="checkCep();">
+                        <div class="flex-row-w div-col-2">
+                            <div class="flex-col-w">
+                                <label for="street" class="label-cad">Rua *</label>
+                                <input id="street" placeholder="Rua" class="input-cad" required>
+                            </div>
+
+                            <div class="flex-col-w">
+                                <label for="number" class="label-cad">Número *</label>
+                                <input id="number" placeholder="Número" type="number" class="input-cad" required>
+                            </div>
+                        </div>
+
+                        <label for="complement" class="label-cad">Complemento</label>
+                        <input id="complement" placeholder="Complemento" class="input-cad">
+
+                        <label for="district" class="label-cad">Bairro *</label>
+                        <input id="district" placeholder="Bairro" class="input-cad" required>
+                        <div class="flex-row-w div-col-2">
+                            <div class="flex-col-w">
+                                <label for="city" class="label-cad">Cidade *</label>
+                                <input id="city" placeholder="Cidade" class="input-cad" required>
+                            </div>
+
+                            <div class="flex-col-w">
+                                <label for="state" class="label-cad">Estado *</label>
+                                <select id="state" class="input-cad"></select>
+                            </div>
+                        </div>
+
+                        <label for="password" class="label-cad">Senha *</label>
+                        <input id="password" placeholder="Senha" type="password" class="input-cad" required>
+
+                        <label for="passwordConfirm" class="label-cad">Confirmar senha *</label>
+                        <input id="passwordConfirm" placeholder="Confirmar senha" type="password" class="input-cad"
+                            required onblur="comparePassword();">
+
+                        <div class="check-level-risk"></div>
+                    </div>
+
+                    <button type="submit">Salvar</button>
+                </form>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./assets/js/util.js"></script>
+    <script src="./assets/js/jquery.mask.js"></script>
+    <script src="./assets/js/dashboardAdm.js"></script>
+</body>
+
+</html>

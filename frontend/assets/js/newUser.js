@@ -39,7 +39,6 @@ function createOptionState(states) {
 async function handleSubmit(event) {
     event.preventDefault();
 
-
     try {
         const data = {
             name: $('#name').val(),
@@ -79,15 +78,12 @@ async function handleSubmit(event) {
             });
         }
         else {
-            Swal.fire(
-                'Ops!',
-                'Parece que algo deu errado. Tente novamente.',
-                'error'
-            );
+            errorInform();
         }
 
     } catch (error) {
         console.log(error);
+        errorInform();
     }
 }
 

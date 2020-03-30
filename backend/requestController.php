@@ -69,8 +69,10 @@ switch ($action) {
 		$json = $pdo->query($sql);
 		$requestid = $pdo->lastInsertId();
 
-		$sql = "INSERT INTO requestproduct(requestid, productid) VALUES({$requestid}, {$productid})";
-		$json = $pdo->query($sql);
+		if($json) {
+			$sql = "INSERT INTO requestproduct(requestid, productid) VALUES({$requestid}, {$productid})";
+			$json = $pdo->query($sql);
+		}
 
 		$json = $json ? true : false;
 		break;
@@ -84,8 +86,10 @@ switch ($action) {
 		$sql = "UPDATE request SET userid = {$userid}, amount = {$amount} WHERE id = {$id}";
 		$json = $pdo->query($sql);
 		
-		$sql = "UPDATE requestproduct SET productid = {$productid} WHERE requestid = {$id}";
-		$json = $pdo->query($sql);
+		if($json){
+			$sql = "UPDATE requestproduct SET productid = {$productid} WHERE requestid = {$id}";
+			$json = $pdo->query($sql);
+		}
 
 		$json = $json ? true : false;
 		break;
@@ -106,9 +110,6 @@ switch ($action) {
 			SET prodNew.stock = prodOld.stock {$value}";
 
 			$pdo->query($sql);
-		}
-		else {
-			
 		}
 
 		$json = $json ? true : false;

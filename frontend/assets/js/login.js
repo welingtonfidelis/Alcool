@@ -47,20 +47,20 @@ async function handleSubmit(event) {
                 localStorage.setItem('id', id);
                 localStorage.setItem('type', query.type);
 
-                switch (type) {
+                switch (query.type) {
                     case 'user':
-                        console.log('dash user');
                         window.location = './dashboardUser.html';
                         break;
 
                     case 'adm':
-                        console.log('dash adm');
+                        window.location = './dashboardAdm.html';
                         break;
+
                     case 'comercial':
                         localStorage.setItem('maxprice', query.maxprice);
                         window.location = './dashboardComercial.html';
                         break;
-                
+
                     default:
                         break;
                 }

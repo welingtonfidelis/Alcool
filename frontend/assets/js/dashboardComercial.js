@@ -36,7 +36,7 @@ async function getRequest() {
                     <div class="left-content box-card">
                         <div class="left-content-header">
                             <span>${el.date}</span>
-                            <span>Nível ${el.risklevel}</span>
+                            <span title="Nível de risco">Nível ${el.risklevel}</span>
                         </div>
 
                         <div>
@@ -153,7 +153,7 @@ async function handleApprove(id) {
 
         if (query !== 'false') {
             successInform();
-            
+
             getRequest();
         }
         else errorInform();
@@ -174,11 +174,28 @@ function showModal() {
 }
 
 function checkMaxPrice() {
-    console.log(parseFloat(($('#price').val()).replace(',', '.')), parseFloat(maxprice));
-
     const div = document.getElementById('price');
     if (parseFloat(($('#price').val()).replace(',', '.')) > parseFloat(maxprice)) {
         div.setCustomValidity(`Preço máximo por unidade ${maxprice}!`);
     }
     else div.setCustomValidity('');
+}
+
+function logout() {
+    Swal.fire({
+        title: 'Sair',
+        text: "Quer mesmo sair do sistema?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#69a7db',
+        cancelButtonColor: '#D93644',
+        confirmButtonText: 'SIM',
+        cancelButtonText: 'NÃO',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            localStorage.clear();
+            window.location = './index.html';
+        }
+    })
 }

@@ -5,6 +5,10 @@ $action = $_GET['action'];
 $json = [];
 
 switch ($action) {
+	case 'selectAll':
+		$json = $pdo->query("SELECT * FROM provider")->fetchAll(PDO::FETCH_ASSOC);
+		break;
+
 	case 'selectAllApproved':
 		$json = $pdo->query("SELECT * FROM provider WHERE approved = 1")->fetchAll(PDO::FETCH_ASSOC);
 		break;
@@ -68,7 +72,7 @@ switch ($action) {
 		$json = $pdo->query($sql);
 		$json = $json ? true : false;
 
-		if (true) {
+		if ($json) {
 			if ($query['approved'] != $_POST['approved']) {
 				$sql = '';
 

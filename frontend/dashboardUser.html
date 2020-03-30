@@ -14,7 +14,11 @@
 
 <body>
     <div id="container">
-        <h1>Dashboard Usuário</h1>
+        <div class="content-header">
+            <h1>Dashboard Usuário</h1>
+
+            <span onclick="logout();">Sair</span>
+        </div>
 
         <div class="flex-col-w">
             <div class="flex-row-w box-content">
@@ -82,7 +86,7 @@
                 <div class="flex-row-w">
                     <div class="flex-col-w">
                         <label for="amount" class="label-cad">Quantidade</label>
-                        <input id="amount" class="input-cad" placeholder="Quantidade">
+                        <input id="amount" class="input-cad" placeholder="Quantidade" required onchange="handleTotal()">
                     </div>
 
                     <div class="flex-col-w">
