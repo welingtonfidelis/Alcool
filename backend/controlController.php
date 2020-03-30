@@ -31,7 +31,7 @@ switch ($action) {
 		break;
 
 	case 'update':
-		$id = $_GET['id'];
+		$id = 1;
 		$query = '';
 
 		foreach ($_POST as $name => $val) {

@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="flex-col-w">
             <div class="flex-row-w box-content">
                 <div class="box-content-space">
@@ -49,6 +49,48 @@
 
                     <div id="product-approved-list" class="box-content-list"></div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex-col-w">
+            <div class="flex-row-w box-content">
+                <div class="box-content-space">
+                    <h2>Clientes</h2>
+
+                    <div id="user-approved-list" class="box-content-list"></div>
+                </div>
+
+                <div>
+                    <div class="flex-row-w right-content-header">
+                        <h2>Administradores</h2>
+
+                        <button onclick="handleNewAdm();">Novo Administrador</button>
+                    </div>
+
+                    <div id="user-wait-list" class="box-content-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-col-w">
+            <div class="flex-col-w box-content">
+
+                <h2>Tabela de controle</h2>
+
+                <label for="amountproviderapproved" class="label-cad">Fornecedores aprovados *</label>
+                <input id="amountproviderapproved" placeholder="Nome" class="input-cad" required>
+
+                <label for="amountproviderwait" class="label-cad">Fornecedores aguardando aprovação *</label>
+                <input id="amountproviderwait" placeholder="Nome" class="input-cad" required>
+
+                <label for="amountclient" class="label-cad">Clientes *</label>
+                <input id="amountclient" placeholder="Nome" class="input-cad" required>
+
+                <label for="maxprice" class="label-cad">Preço máximo de produto *</label>
+                <input id="maxprice" placeholder="Nome" class="input-cad" required>
+
+                <button onclick="handleUpdateControl();">Alterar</button>
+
             </div>
         </div>
 
@@ -66,7 +108,7 @@
                 <input id="stock" placeholder="Quantidade" class="input-cad" required>
 
                 <label for="price" class="label-cad">Preço un *</label>
-                <input id="price" placeholder="Preço un" class="input-cad" required >
+                <input id="price" placeholder="Preço un" class="input-cad" required>
 
                 <input type="checkbox" id="approved-prod">
                 <label for="approved-prod">Aprovado</label>

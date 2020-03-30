@@ -4,6 +4,7 @@ let modalCtrl = false;
 let modalCtrl2 = false;
 let idUpdate = null;
 let typeUpdate = null;
+let newAdm = false;
 
 $().ready(() => {
     $('#modal-product').hide();
@@ -15,24 +16,27 @@ $().ready(() => {
         'success'
     );
 
-    getProvider();
+    getProvider('provider');
+    getProvider('user');
     getProduct();
+    getControl();
     createOptionState(getStatesBr());
 
     $("#product-list").select2();
     $('#amount').mask('9');
     $("#phone").mask("(99) 99999-9999");
     $("#cep").mask("99999999");
-    $('#price').mask("###0,00", { reverse: true })
+    $('#price').mask("###0,00", { reverse: true });
+    $('#maxprice').mask("###0,00", { reverse: true });
 });
 
-async function getProvider() {
-    $('#provider-approved-list').html('');
-    $('#provider-wait-list').html('');
+async function getProvider(type) {
+    $(`#${type}-approved-list`).html('');
+    $(`#${type}-wait-list`).html('');
 
     try {
         let listProvider = JSON.parse(
-            await $.get(`../backend/providerController.php?action=selectAll`)
+            await $.get(`../backend/${type}Controller.php?action=selectAll`)
         );
 
         let htmlAproved = '';
@@ -42,13 +46,14 @@ async function getProvider() {
                 let tmp = `
                     <div class="left-content box-card">
                         <div class="header-btn-action">
-                            <span onclick="handleDelete('provider', ${el.id});">Deletar</span>
-                            ${el.approved > 0 ? `<span onclick="handleEdit('provider', ${el.id});">Editar</span>` : ''}
+                            <span onclick="handleDelete('${type}', ${el.id});">Deletar</span>
+                            ${el.approved > 0 ? `<span onclick="handleEdit('${type}', ${el.id});">Editar</span>` : ''}
                         </div>
 
                         <div class="flex-row-w">
                             <span>${el.name}</span>&nbsp;&nbsp;
-                            <span>${el.cnpj}</span>
+                            ${type === 'provider' ? `<span>${el.cnpj}</span>` : `<span>${el.cpf}</span>`} 
+                            ${type === 'provider' ? `` : `&nbsp;&nbsp;<span>${el.risklevel}</span>`} 
                         </div>
 
                         <div  class="flex-row-w">
@@ -59,14 +64,18 @@ async function getProvider() {
                         <span>${el.address}, ${el.city}-${el.state}</span>
                 `
 
-                if (el.approved > 0) {
+                if (el.type === 'adm') {
+                    tmp += '</div>';
+                    htmlWait += tmp;
+                }
+                else if (el.approved > 0) {
                     tmp += '</div>';
                     htmlAproved += tmp;
                 }
                 else {
                     tmp += `
                         <div id="btn-approve-request" class="left-content-footer">
-                                <button onclick="handleApprove('provider', ${el.id});">Aprovar</button>
+                                <button onclick="handleApprove('${type}', ${el.id});">Aprovar</button>
                             </div>
                         </div>
                     `;
@@ -74,8 +83,8 @@ async function getProvider() {
                 }
             });
 
-            $('#provider-approved-list').append(htmlAproved);
-            $('#provider-wait-list').append(htmlWait);
+            $(`#${type}-approved-list`).append(htmlAproved);
+            $(`#${type}-wait-list`).append(htmlWait);
         }
     } catch (error) {
         console.log(error);
@@ -140,6 +149,27 @@ async function getProduct() {
     }
 }
 
+async function getControl() {
+    try {
+        const query = JSON.parse(
+            await $.get(`../backend/controlController.php?action=select`)
+        );
+
+        console.log(query);
+        if(query){
+            $('#amountproviderapproved').val(query.amountproviderapproved),
+            $('#amountproviderwait').val(query.amountproviderwait),
+            $('#amountclient').val(query.amountclient),
+            $('#maxprice').val(query.maxprice)
+        }
+        else errorInform();
+
+    } catch (error) {
+        console.log(error);
+        errorInform();
+    }
+}
+
 async function handleApprove(type, id) {
     console.log('aprovar', id);
     try {
@@ -147,8 +177,8 @@ async function handleApprove(type, id) {
             `../backend/${type}Controller.php?action=update&id=${id}`, { approved: 1 }
         );
 
-        if(query !== 'false'){
-            if(type === 'provider') getProvider();
+        if (query !== 'false') {
+            if (type === 'provider') getProvider();
             else getProduct();
 
             successInform();
@@ -164,10 +194,14 @@ async function handleApprove(type, id) {
 async function handleSubmit(event) {
     event.preventDefault();
 
-    url = `../backend/${typeUpdate}Controller.php?action=update&id=${idUpdate}`;
+    const action = newAdm ? 'create' : 'update'
+
+    const tmp = typeUpdate !== 'adm' ? typeUpdate : 'user';
+    url = `../backend/${tmp}Controller.php?action=${action}&id=${idUpdate}`;
+
     let data = {};
     try {
-        if(typeUpdate === 'user' || typeUpdate === 'provider'){
+        if (typeUpdate === 'user' || typeUpdate === 'provider' || typeUpdate === 'adm') {
             data = {
                 name: $('#name').val(),
                 email: $('#email').val(),
@@ -178,10 +212,10 @@ async function handleSubmit(event) {
                 state: $("#state option:selected").text(),
             };
 
-            if (typeUpdate === 'user') {
+            if (typeUpdate === 'user' || typeUpdate === 'adm') {
                 data['cpf'] = $('#doc').val();
                 data['risklevel'] = $(".check-level-risk input:checked").length;
-                data['type'] = 'user';
+                data['type'] = newAdm ? 'adm' : typeUpdate;
             }
             else {
                 data['cnpj'] = $('#doc').val();
@@ -201,8 +235,8 @@ async function handleSubmit(event) {
         const query = await $.post(url, data);
 
         if (query !== 'false') {
-            if(typeUpdate === 'user' || typeUpdate === 'provider') {
-                getProvider();
+            if (typeUpdate === 'user' || typeUpdate === 'provider' || typeUpdate === 'adm') {
+                getProvider(typeUpdate !== 'adm' ? typeUpdate : 'user');
                 showModalUser();
             }
             else {
@@ -211,13 +245,35 @@ async function handleSubmit(event) {
             }
 
             successInform();
-            
+
             idUpdate = null;
             typeUpdate = null;
+            newAdm = false;
         }
         else {
             errorInform();
         }
+
+    } catch (error) {
+        console.log(error);
+        errorInform();
+    }
+}
+
+async function handleUpdateControl(){
+    try {
+        const data = {
+            amountproviderapproved: $('#amountproviderapproved').val(),
+            amountproviderwait: $('#amountproviderwait').val(),
+            amountclient: $('#amountclient').val(),
+            maxprice: ($('#maxprice').val()).replace(',', '.')
+        }
+        const query = await $.post('../backend/controlController.php?action=update', data);
+
+        if(query !== 'false'){
+            successInform();
+        }
+        else errorInform();
 
     } catch (error) {
         console.log(error);
@@ -244,7 +300,7 @@ function handleDelete(type, id) {
                 if (query !== 'false') {
                     successInform();
 
-                    if(type === 'provider') getProvider();
+                    if (type !== 'product') getProvider(type);
                     else getProduct();
 
                 }
@@ -258,7 +314,22 @@ function handleDelete(type, id) {
     });
 }
 
+function handleNewAdm() {
+    typeUpdate = 'user';
+    newAdm = true;
+
+    $('#title-edit').text('Novo Administrador');
+    $('#doc').attr('placeholder', 'CPF *');
+    $('#labelDoc').text('CPF');
+    $("#doc").mask("999.999.999-99");
+    $('.check-level-risk').html('');
+
+    showModalUser();
+}
+
 async function handleEdit(type, id) {
+    $('.check-level-risk').html('');
+
     if (type === 'user') {
         $('.check-level-risk').append(`
             <h2>Você se encaixa em um ou mais destes grupos?</h2>
@@ -274,9 +345,13 @@ async function handleEdit(type, id) {
             <input type="checkbox" id="fum">
             <label for="fum">Fumante</label>
         `);
+
+        $('#title-edit').text('Editar Usuário');
+        $('#doc').attr('placeholder', 'CPF *');
+        $('#labelDoc').text('CPF');
+        $("#doc").mask("999.999.999-99");
     }
     else {
-        $('.check-level-risk').html('');
         $('.check-level-risk').append(`
             <input type="checkbox" id="approved">
             <label for="approved">Aprovado</label>
@@ -290,16 +365,16 @@ async function handleEdit(type, id) {
     try {
         const query = JSON.parse(await $.get(
             `../backend/${type}Controller.php?action=select&id=${id}`
-            ));
+        ));
 
         if (query !== 'false') {
             idUpdate = id;
-            typeUpdate = type;
+            typeUpdate = query.type;
 
-            if(type === 'user' || type === 'provider'){
+            if (type === 'user' || type === 'provider' || type === 'adm') {
                 const address = (query.address).split(',');
                 const [cep, street, number, complement, district] = address;
-    
+
                 $('#name').val(query.name);
                 $('#email').val(query.email);
                 $('#phone').val(query.phone);
@@ -310,7 +385,7 @@ async function handleEdit(type, id) {
                 $('#district').val(district ? district : '');
                 $('#city').val(query.city);
                 $('#state').val(query.state);
-    
+
                 if (type === 'user') {
                     $('#doc').val(query.cpf);
                 }
@@ -329,8 +404,6 @@ async function handleEdit(type, id) {
 
                 showModalProduct();
             }
-
-            
         }
         else errorInform();
 
@@ -357,6 +430,8 @@ function showModalUser() {
         $('#modal-user').show();
     }
     else {
+        newAdm = false;
+        $('#modal-user').find('input:text').val('');
         $('#modal-user').hide();
     }
 }
@@ -368,6 +443,7 @@ function showModalProduct() {
         $('#modal-product').show();
     }
     else {
+        $('#modal-product').find('input:text').val('');
         $('#modal-product').hide();
     }
 }

@@ -33,14 +33,18 @@ button:hover {
 }
 
 #container {
-    width: 100%;
-    max-width: 1120px;
-    height: 100vh;
+    position: relative;
+    height: auto;
+    min-height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.login-container {
+    height: 100vh !important;
 }
 
 .image-login {
@@ -130,6 +134,7 @@ button:hover {
 
 .box-content {
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 .box-card {
@@ -174,13 +179,11 @@ button:hover {
 
 .modal-new {
     z-index: 3;
-    padding-top: 100px;
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    height: 100vh;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -217,7 +220,7 @@ button:hover {
 
 .box-content-list {
     overflow: auto;
-    max-height: 40vh;
+    max-height: 42vh;
     width: 47vw;
 }
 
