@@ -51,17 +51,19 @@ async function getProvider(type) {
                         </div>
 
                         <div class="flex-row-w">
-                            <span>${el.name}</span>&nbsp;&nbsp;
-                            ${type === 'provider' ? `<span>${el.cnpj}</span>` : `<span>${el.cpf}</span>`} 
+                            <span><strong>Nome: </strong> ${el.name}</span>&nbsp;&nbsp;
+                            ${type === 'provider' ? 
+                                `<span><strong>CNPJ: </strong> ${el.cnpj}</span>` : 
+                                `<span><strong>CPF: </strong> ${el.cpf}</span>`} 
                             ${type === 'provider' ? `` : `&nbsp;&nbsp;<span>${el.risklevel}</span>`} 
                         </div>
 
                         <div  class="flex-row-w">
-                            <span>${el.email}</span>&nbsp;&nbsp;    
-                            <span>${el.phone}</span>
+                            <span><strong>E-mail: </strong> ${el.email}</span>&nbsp;&nbsp;    
+                            <span><strong>Telefone </strong> ${el.phone}</span>
                         </div>
                                 
-                        <span>${el.address}, ${el.city}-${el.state}</span>
+                        <span><strong>Endereço: </strong> ${el.address}, ${el.city}-${el.state}</span>
                 `
 
                 if (el.type === 'adm') {
@@ -113,15 +115,15 @@ async function getProduct() {
                         </div>
 
                         <div class="flex-row-w">
-                            <span>${el.name}</span>&nbsp;&nbsp;
+                            <span><strong>Nome: </strong>${el.name}</span>&nbsp;&nbsp;
                         </div>
 
                         <div  class="flex-row-w">
-                            <span>${el.stock}</span>&nbsp;&nbsp;    
-                            <span>R$${el.price}</span>
+                            <span><strong>Estoque: </strong>${el.stock}</span>&nbsp;&nbsp;    
+                            <span><strong>Preço un: </strong>R$${el.price}</span>
                         </div>
                                 
-                        <span>${el.provname}</span>
+                        <span><strong>Fornecedor: </strong>${el.provname}</span>
                 `
 
                 if (el.approved > 0) {
@@ -155,11 +157,10 @@ async function getControl() {
             await $.get(`../backend/controlController.php?action=select`)
         );
 
-        console.log(query);
         if(query){
-            $('#amountproviderapproved').val(query.amountproviderapproved),
-            $('#amountproviderwait').val(query.amountproviderwait),
-            $('#amountclient').val(query.amountclient),
+            $('#amountproviderapproved').text(query.amountproviderapproved);
+            $('#amountproviderwait').text(query.amountproviderwait);
+            $('#amountclient').text(query.amountclient);
             $('#maxprice').val(query.maxprice)
         }
         else errorInform();
@@ -171,14 +172,13 @@ async function getControl() {
 }
 
 async function handleApprove(type, id) {
-    console.log('aprovar', id);
     try {
         const query = await $.post(
             `../backend/${type}Controller.php?action=update&id=${id}`, { approved: 1 }
         );
 
         if (query !== 'false') {
-            if (type === 'provider') getProvider();
+            if (type === 'provider') getProvider('provider');
             else getProduct();
 
             successInform();
@@ -263,9 +263,6 @@ async function handleSubmit(event) {
 async function handleUpdateControl(){
     try {
         const data = {
-            amountproviderapproved: $('#amountproviderapproved').val(),
-            amountproviderwait: $('#amountproviderwait').val(),
-            amountclient: $('#amountclient').val(),
             maxprice: ($('#maxprice').val()).replace(',', '.')
         }
         const query = await $.post('../backend/controlController.php?action=update', data);
@@ -369,7 +366,7 @@ async function handleEdit(type, id) {
 
         if (query !== 'false') {
             idUpdate = id;
-            typeUpdate = query.type;
+            typeUpdate = (query.type ? query.type : type);
 
             if (type === 'user' || type === 'provider' || type === 'adm') {
                 const address = (query.address).split(',');
@@ -437,8 +434,6 @@ function showModalUser() {
 }
 
 function showModalProduct() {
-    // $('#teste1').center();
-    $('#modal-product').css({top:'50%',left:'50%',margin:'-'+($('#modal-product').height() / 2)+'px 0 0 -'+($('#modal-product').width() / 2)+'px'});
     modalCtrl2 = !modalCtrl2;
 
     if (modalCtrl2) {

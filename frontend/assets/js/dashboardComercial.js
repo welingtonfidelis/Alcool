@@ -35,26 +35,26 @@ async function getRequest() {
                 let tmp = `
                     <div class="left-content box-card">
                         <div class="left-content-header">
-                            <span>${el.date}</span>
-                            <span title="Nível de risco">Nível ${el.risklevel}</span>
+                            <span><strong>Data: </strong>${el.date}</span>
+                            <span title="Nível de risco"><strong>Nível de risco: </strong> ${el.risklevel}</span>
                         </div>
 
                         <div>
-                            <span>${el.username}</span>
+                            <span><strong>Nome: </strong>${el.username}</span>
                             <p>
-                                <span>${el.phone}</span>
-                                <span>${el.email}</span>
+                                <span><strong>Telefone: </strong>${el.phone}</span>
+                                <span><strong>E-mail: </strong>${el.email}</span>
                             </p>
                         </div>
 
                         <div>
-                            <span>${el.address}, ${el.city}-${el.state}</span>
+                            <span><strong>Endereço: </strong>${el.address}, ${el.city}-${el.state}</span>
                         </div>
 
                         <div class="left-content-product">
-                            <span>${el.amount}</span>
-                            <span>${el.prodname}</span>
-                            <span>R$${el.amount * el.price}</span>
+                            <span><strong>Quantidade: </strong>${el.amount}</span>
+                            <span><strong>Produto: </strong>${el.prodname}</span>
+                            <span><strong>Total: </strong>R$${el.amount * el.price}</span>
                         </div>
                 `
 
@@ -98,9 +98,9 @@ async function getProduct() {
                 const tmp = `
                 <div class="left-content box-card">
                     <div class="left-content-product">
-                        <span>${el.stock}</span>
-                        <span>${el.name}</span>
-                        <span>R$${el.price}</span>
+                        <span><strong>Estoque: </strong>${el.stock}</span>
+                        <span><strong>Nome: </strong>${el.name}</span>
+                        <span><strong>Preço un: </strong>R$${el.price}</span>
                     </div>
                 </div>
                 `

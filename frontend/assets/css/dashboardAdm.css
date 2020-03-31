@@ -7,6 +7,22 @@
     cursor: pointer;
 }
 
+.header-btn-action span:first-child {
+    background: #d13235;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.header-btn-action span:last-child {
+    background: #69a7db;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+}
+
 .modal-form-center {
     position: fixed;
     top: calc(100vh - 90vh);

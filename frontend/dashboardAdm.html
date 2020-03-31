@@ -20,6 +20,25 @@
             <span onclick="logout();">Sair</span>
         </div>
 
+        <div class="flex-col-w box-color">
+            <h2>Tabela de controle</h2>
+            <div class="flex-row-w box-content ">
+
+                <span>Total de fornecedores aprovados: <strong id="amountproviderapproved"></strong></span>
+                <span>Total de fornecedores aguardando aprovação: <strong id="amountproviderwait"></strong></span>
+                <span>Total de clientes: <strong id="amountclient"></strong></span>
+
+                <div class="flex-col">
+                    <label for="maxprice" class="label-cad">Preço máximo de produto *</label>
+                    
+                    <div class="flex-row">
+                        <input id="maxprice" placeholder="Nome" class="input-cad" required>
+                        <button onclick="handleUpdateControl();">Alterar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="flex-col-w">
             <div class="flex-row-w box-content">
                 <div class="box-content-space box-color">
@@ -72,28 +91,6 @@
             </div>
         </div>
 
-        <div class="flex-col-w">
-            <div class="flex-col-w box-content box-color">
-
-                <h2>Tabela de controle</h2>
-
-                <label for="amountproviderapproved" class="label-cad">Total fornecedores de aprovados</label>
-                <input id="amountproviderapproved" placeholder="Nome" class="input-cad" disabled>
-
-                <label for="amountproviderwait" class="label-cad">Total fornecedores de aguardando aprovação</label>
-                <input id="amountproviderwait" placeholder="Nome" class="input-cad" disabled>
-
-                <label for="amountclient" class="label-cad">Total de Clientes</label>
-                <input id="amountclient" placeholder="Nome" class="input-cad" disabled>
-
-                <label for="maxprice" class="label-cad">Preço máximo de produto *</label>
-                <input id="maxprice" placeholder="Nome" class="input-cad" required>
-
-                <button onclick="handleUpdateControl();">Alterar</button>
-
-            </div>
-        </div>
-
         <div id="modal-product" class="modal-new">
             <form class="modal-form-center" onsubmit="handleSubmit(event)">
                 <div class="modal-header">
@@ -118,13 +115,13 @@
         </div>
 
         <div id="modal-user" class="modal-new">
-            <form class="modal-form-center"  onsubmit="handleSubmit(event)">
+            <form class="modal-form-center" onsubmit="handleSubmit(event)">
                 <div class="modal-header">
                     <span onclick="showModalUser();">Fechar</span>
                     <h2 id="title-edit">Editar Usuário</h2>
                 </div>
 
-                <form class="flex-col-w" onsubmit="handleSubmit(event);">
+                <div class="flex-col-w" onsubmit="handleSubmit(event);">
                     <div class="flex-col-w">
                         <label for="name" class="label-cad">Nome *</label>
                         <input id="name" placeholder="Nome" class="input-cad" required>
@@ -180,7 +177,7 @@
                     </div>
 
                     <button type="submit">Salvar</button>
-                </form>
+                </div>
             </form>
         </div>
     </div>

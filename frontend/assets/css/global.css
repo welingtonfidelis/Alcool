@@ -180,6 +180,7 @@ button:hover {
 .box-color {
     margin-right: 5px;
     border: 1px solid #69a7db;
+    background: #fff;
     padding: 5px;
 }
 
@@ -218,7 +219,7 @@ button:hover {
 
 .modal-header span{
     float: right;
-    background: red;
+    background: #d13235;
     padding: 3px;
     border-radius: 3px;
     color: #fff;

@@ -51,24 +51,24 @@ async function getRequest() {
                 let tmp = `
                     <div class="left-content box-card">
                         <div class="left-content-header">
-                            <span>${el.date}</span>
+                            <span><strong>Data: </strong>${el.date}</span>
                         </div>
 
                         <div>
-                            <span>${el.prodname}</span>
+                            <span><strong>Produto: </strong>${el.prodname}</span>
                             <p>
-                                <span>${el.amount}</span>
-                                <span>Total R$${el.amount * el.price}</span>
+                                <span><strong>Quantidade: </strong>${el.amount}</span>
+                                <span><strong>Total: </strong> R$${el.amount * el.price}</span>
                             </p>
                         </div>
 
                         <div>
-                            <span>${el.providername}</span>
+                            <span><strong>Fornecedor: </strong>${el.providername}</span>
                             <p>
-                                <span>${el.phone}</span>
-                                <span>${el.email}</span>
+                                <span><strong>Telefone: </strong>${el.phone}</span>
+                                <span><strong>E-mail: </strong>${el.email}</span>
                             </p>
-                            <span>${el.address}, ${el.city}-${el.state}</span>
+                            <span><strong>Endereço: </strong>${el.address}, ${el.city}-${el.state}</span>
                         </div>
                     </div>
                 `
