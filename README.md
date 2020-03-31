@@ -1,6 +1,6 @@
-# CRUD-GraphQL-NodeJs
+# Álcool+
 
-Este projeto foi construído com objetivo de aprendizado e demonstração de conhecimento através da criação de um sistema capaz de fornecer um cadastro à clientes e fornecedores, afim de que estes possam requisitar(fazer pedido ao fornecedor) e cadastrar produtos (atualmente focado em Álcoo em Gel). Também é possível que administradores possam controlar o cadastro de clientes, fornecedores, produtos e pedidos.
+Este projeto foi construído com objetivo de aprendizado e demonstração de conhecimento através da criação de um sistema capaz de fornecer um cadastro à clientes e fornecedores, afim de que estes possam requisitar(fazer pedido ao fornecedor) e cadastrar produtos (atualmente focado em Álcool em Gel). Também é possível que administradores possam controlar o cadastro de clientes, fornecedores, produtos e pedidos.
 O projeto está separado em:
 * Database: conexão com banco de dados (PHP e mysql driver);
 * Backend: Controllers construídos com PHP responsáveis pela busca e manipulação dos dados enviados;
