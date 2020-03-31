@@ -14,8 +14,8 @@ O projeto está separado em:
 
 ### Instalação
 
-Criar um banco de dados com nome 'alcool', criar um usuário no mysql com nome e senha 'root' ou alterar no arquivo connection dentro da pasta 'database' o usuário e senha para outro que tenha acesso ao banco. Utilizar usar este [sql] para gerar as tabelas necessárias. Clonar projeto, colocá-lo na pasta de seu localhost e acessar o arquivo index.html dentro da pasta frontend.
-Já deve existir em seu banco de dados um usuário administrador (usuário 'adm@email.com', senha 'adm'), caso não exista, deve-se criar um preenchendo as informações manualmente na tabela 'user' (obs.: setar o campo 'type' com valor 'adm'). Em seguida você pode criar um usuário (comercial ou cliente) clinando no "clique aqui" na tela de login.
+Criar um banco de dados com nome 'alcool', criar um usuário no mysql com nome e senha 'root' ou alterar no arquivo connection dentro da pasta 'database' o usuário e senha para outro que tenha acesso ao banco. Utilizar este [sql] para gerar as tabelas necessárias. Clonar projeto, colocá-lo na pasta de seu localhost e acessar o arquivo index.html dentro da pasta frontend.
+Já deve existir em seu banco de dados um usuário administrador (usuário 'adm@email.com', senha 'adm'), caso não exista, deve-se criar um preenchendo as informações manualmente na tabela 'user' (obs.: setar o campo 'type' com valor 'adm'). Em seguida você pode criar um usuário (comercial ou cliente) clicando no "clique aqui" na tela de login.
 Todo cadastro comercial (usuário comercial e novos produtos) precisam passar por uma aprovação de um administrador, ou seja, não estará disponível para uso até que o administrador aprove seu cadastro. Diferente de um usuário cliente, que é aprovado automaticamente no sistema. Caso queira observar o retorno de requisições no backend utilizando [Postman], você pode baixar e importar [este arquivo].
 
 License
@@ -36,4 +36,3 @@ MIT
 [Postman]: <https://www.postman.com/downloads/>
 [este arquivo]: <https://drive.google.com/open?id=1JTDgzv-_so3s8EZORsBsS-Jpk7ZQhVjI>
 
-;
