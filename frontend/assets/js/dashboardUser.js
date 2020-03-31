@@ -1,5 +1,9 @@
 const name = localStorage.getItem('name');
 const id = localStorage.getItem('id');
+const lastRequestDate = localStorage.getItem('lastRequestDate');
+const lastRequestAmount = localStorage.getItem('lastRequestAmount');
+const nextRequest = localStorage.getItem('nextRequest');
+
 let listProduct = [];
 let modalCtrl = false;
 let productSelected = null;
@@ -13,11 +17,22 @@ $().ready(() => {
         'success'
     );
 
+    if (lastRequestDate !== 'undefined') {
+        const text1 = `Último pedido: ${lastRequestDate}, ${lastRequestAmount}un`;
+        const text2 = nextRequest && nextRequest > 0 ? `Próximo pedido em: ${nextRequest} dia/s` : '';
+        $('#lastRequest').text(text1);
+        $('#nextRequest').text(text2);
+
+        if (lastRequestAmount == 2 && nextRequest > 0) {
+            $('#btn-new-request').prop('disabled', true);
+            $('#btn-new-request').prop('title', `Você precisa aguardar ${nextRequest} dia/s`);
+        }
+    }
+
     getRequest();
     getProduct();
 
     $("#product-list").select2();
-    $('#amount').mask('9');
 });
 
 async function getRequest() {
@@ -134,6 +149,14 @@ async function handleSubmit(event) {
 }
 
 function handleTotal() {
+    let max = 2;
+
+    if (nextRequest !== 'undefined' && nextRequest > 0) {
+        max = max - lastRequestAmount;
+    }
+
+    if ($('#amount').val() > max) $('#amount').val(max);
+
     if (productSelected) {
         $('#total-price').val($('#amount').val() * productSelected.price)
     }

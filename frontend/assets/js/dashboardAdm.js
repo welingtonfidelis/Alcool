@@ -437,6 +437,8 @@ function showModalUser() {
 }
 
 function showModalProduct() {
+    // $('#teste1').center();
+    $('#modal-product').css({top:'50%',left:'50%',margin:'-'+($('#modal-product').height() / 2)+'px 0 0 -'+($('#modal-product').width() / 2)+'px'});
     modalCtrl2 = !modalCtrl2;
 
     if (modalCtrl2) {

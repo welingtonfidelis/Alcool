@@ -6,3 +6,8 @@
 .header-btn-action span:hover {
     cursor: pointer;
 }
+
+.modal-form-center {
+    position: fixed;
+    top: calc(100vh - 90vh);
+}

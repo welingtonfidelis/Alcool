@@ -43,7 +43,7 @@ button:hover {
     justify-content: center;
 }
 
-.login-container {
+.container-max {
     height: 100vh !important;
 }
 
@@ -177,6 +177,12 @@ button:hover {
     margin-right: 5px;
 }
 
+.box-color {
+    margin-right: 5px;
+    border: 1px solid #69a7db;
+    padding: 5px;
+}
+
 .modal-new {
     z-index: 3;
     position: absolute;
@@ -212,6 +218,11 @@ button:hover {
 
 .modal-header span{
     float: right;
+    background: red;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
 }
 
 .modal-header span:hover {
@@ -245,8 +256,3 @@ button:hover {
 .content-header span:hover{
     cursor: pointer;
 }
-/* .select2-container--default .select2-selection--single {
-    border: 1px solid #69a7db !important;
-    border-radius: 0 !important;
-    margin: 0 5px 0 5px !important;
-} */

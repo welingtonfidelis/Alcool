@@ -49,6 +49,10 @@ async function handleSubmit(event) {
 
                 switch (query.type) {
                     case 'user':
+                        localStorage.setItem('lastRequestDate', query.lastRequestDate);
+                        localStorage.setItem('lastRequestAmount', query.lastRequestAmount);
+                        localStorage.setItem('nextRequest', query.nextRequest);
+
                         window.location = './dashboardUser.html';
                         break;
 

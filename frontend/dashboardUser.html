@@ -13,26 +13,30 @@
 </head>
 
 <body>
-    <div id="container">
+    <div id="container" class="container-max">
         <div class="content-header">
             <h1>Dashboard Usuário</h1>
 
             <span onclick="logout();">Sair</span>
         </div>
+        <div class="content-header content-header-next-request">
+            <h3 id="lastRequest"></h3>
+            <h3 id="nextRequest"></h3>
+        </div>
 
         <div class="flex-col-w">
             <div class="flex-row-w box-content">
-                <div class="box-content-space">
+                <div class="box-content-space box-color">
                     <h2>Pedidos aguardando confirmação</h2>
 
                     <div id="request-wait-list" class="box-content-list"></div>
                 </div>
 
-                <div>
+                <div class="box-color">
                     <div class="flex-row-w right-content-header">
                         <h2>Pedidos confirmados</h2>
 
-                        <button onclick="showModal();">Novo pedido</button>
+                        <button id="btn-new-request" onclick="showModal();">Novo pedido</button>
                     </div>
 
                     <div id="request-approved-list" class="box-content-list"></div>
@@ -86,7 +90,16 @@
                 <div class="flex-row-w">
                     <div class="flex-col-w">
                         <label for="amount" class="label-cad">Quantidade</label>
-                        <input id="amount" class="input-cad" placeholder="Quantidade" required onchange="handleTotal()">
+                        <input 
+                            id="amount" 
+                            class="input-cad" 
+                            placeholder="Quantidade" 
+                            required 
+                            onchange="handleTotal()"
+                            type="number"
+                            min="1"
+                            max="2"
+                        >
                     </div>
 
                     <div class="flex-col-w">
