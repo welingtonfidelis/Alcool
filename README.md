@@ -9,7 +9,7 @@ O projeto está separado em:
 ### Requisitos
 
 * [PHP] - PHP 7 (ou superior)
-* [MySql] - Uma conta no servidor Mongodb Atlas
+* [MySql] - Banco de dados MySql instalado
 * [Apache] - Servidor web para acesso de arquivos localhost (pode ser outro)
 
 ### Instalação
